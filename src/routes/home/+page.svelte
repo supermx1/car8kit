@@ -6,7 +6,7 @@
     import { USER } from "$lib/store.js";
     import {onMount} from "svelte";
     import {goto} from "$app/navigation";
-    import ListItem from "$lib/components/ListItem.svelte";
+    import Listitem from "$lib/components/Listitem.svelte";
     import Profile from "$lib/components/Profile.svelte";
 
 
@@ -118,7 +118,7 @@
         <h1 class="text-xl text-gray-900 font-bold p-5">Rated Vehicles</h1>
         <div class="px-5 overflow-x-hidden overflow-y-auto h-[70vh] no-scrollbar">
             {#each filteredList as d}
-                <ListItem data={d} />
+                <Listitem data={d} />
             {/each}
         </div>
 
