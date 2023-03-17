@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.swiper-pagination-bullet-active {
+    background: white !important;
+    opacity: 1 !important;
+}
+.swiper-pagination-bullet {
+    background: white !important;
+    opacity: 0.2 !important
+}
+.swiper-slide {
+    margin-top: 10rem !important;
+    height: 23rem !important
+}
