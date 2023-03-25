@@ -1,0 +1,979 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:17:42.000Z",
+      "question": "Windshield free of cracks and wipers/blades are good",
+      "score": 2,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Exterior Inspection"
+      }
+    },
+    {
+      "id": 2,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:19:09.000Z",
+      "question": "Body panel colors match",
+      "score": 1,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Exterior Inspection"
+      }
+    },
+    {
+      "id": 3,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:20:19.000Z",
+      "question": "Fresh paint job ",
+      "score": 1,
+      "notes": "This could also be to conceal rust or damage",
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Exterior Inspection"
+      }
+    },
+    {
+      "id": 4,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:20:42.000Z",
+      "question": "Seams where the booth, bonnet and doors close are properly aligned",
+      "score": 1,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Exterior Inspection"
+      }
+    },
+    {
+      "id": 5,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:22:09.000Z",
+      "question": "Tires are of free of any cuts, bubbles or cracks",
+      "score": 2,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Exterior Inspection"
+      }
+    },
+    {
+      "id": 6,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:22:39.000Z",
+      "question": "Free of body scratches/dents",
+      "score": 1,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Exterior Inspection"
+      }
+    },
+    {
+      "id": 7,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:23:04.000Z",
+      "question": "Headlights, turn signals and break lights are functional",
+      "score": 1,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Exterior Inspection"
+      }
+    },
+    {
+      "id": 8,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:23:34.000Z",
+      "question": "Underbody has no rust",
+      "score": 2,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Exterior Inspection"
+      }
+    },
+    {
+      "id": 9,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:25:07.000Z",
+      "question": "Spare tire, jack and lug wrench on car and fully functional",
+      "score": 2,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Exterior Inspection"
+      }
+    },
+    {
+      "id": 10,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:25:34.000Z",
+      "question": "When shaking/pushing the vehicle's corners, no funny noises are made",
+      "score": 2,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Exterior Inspection"
+      }
+    },
+    {
+      "id": 11,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:26:13.000Z",
+      "question": "Seats unworn and free of cracks",
+      "score": 1,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Interior Inspection"
+      }
+    },
+    {
+      "id": 12,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:29:34.000Z",
+      "question": "All doors open and close freely",
+      "score": 1,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Interior Inspection"
+      }
+    },
+    {
+      "id": 13,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:30:01.000Z",
+      "question": "Windshield wipers work and can spray wiper fluid",
+      "score": 1,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Interior Inspection"
+      }
+    },
+    {
+      "id": 14,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:31:06.000Z",
+      "question": "All seats equipped with functional seat belts",
+      "score": 2,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Interior Inspection"
+      }
+    },
+    {
+      "id": 15,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:32:26.000Z",
+      "question": "All power windows work",
+      "score": 1,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Electrical System"
+      }
+    },
+    {
+      "id": 16,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:32:45.000Z",
+      "question": "All gauges on the dashboard work",
+      "score": 2,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Electrical System"
+      }
+    },
+    {
+      "id": 17,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:33:52.000Z",
+      "question": "No dashboard warning lights remain illuminated",
+      "score": 2,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Electrical System"
+      }
+    },
+    {
+      "id": 18,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:44:07.000Z",
+      "question": "Radio/Speakers/Entertainment system works",
+      "score": 1,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Electrical System"
+      }
+    },
+    {
+      "id": 19,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:44:30.000Z",
+      "question": "Air conditioner works",
+      "score": 1,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Electrical System"
+      }
+    },
+    {
+      "id": 20,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:44:45.000Z",
+      "question": "All seats adjust properly",
+      "score": 1,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Electrical System"
+      }
+    },
+    {
+      "id": 21,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:45:04.000Z",
+      "question": "All interior lights are working",
+      "score": 1,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Electrical System"
+      }
+    },
+    {
+      "id": 22,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:45:38.000Z",
+      "question": "Engine not making a knocking or pinging sound",
+      "score": 3,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Engine & Transmission"
+      }
+    },
+    {
+      "id": 23,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:46:06.000Z",
+      "question": "Oil dip stick free of dark, black oil",
+      "score": 2,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Engine & Transmission"
+      }
+    },
+    {
+      "id": 24,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:47:20.000Z",
+      "question": "Free of odours while engine is running",
+      "score": 2,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Engine & Transmission"
+      }
+    },
+    {
+      "id": 25,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:47:41.000Z",
+      "question": "Exhaust pipe emissions are is not blue, black or white",
+      "score": 3,
+      "notes": "If blue it indicates engine burns oil. If black indicate excessive oil consumption, If white it indicates a bad head gasket",
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Engine & Transmission"
+      }
+    },
+    {
+      "id": 26,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:47:59.000Z",
+      "question": "Each gear shifts smoothly",
+      "score": 3,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Engine & Transmission"
+      }
+    },
+    {
+      "id": 27,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:49:36.000Z",
+      "question": "No grinding noises when in reverse",
+      "score": 3,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Engine & Transmission"
+      }
+    },
+    {
+      "id": 28,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:50:02.000Z",
+      "question": "Transmission fluid looks clean",
+      "score": 2,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Engine & Transmission"
+      }
+    },
+    {
+      "id": 29,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:51:37.000Z",
+      "question": "Vehicle is stable; no shaking or vibrating",
+      "score": 2,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Brakes & Steering"
+      }
+    },
+    {
+      "id": 30,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:51:52.000Z",
+      "question": "No resistance in the steering wheel when turning",
+      "score": 2,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Brakes & Steering"
+      }
+    },
+    {
+      "id": 31,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:52:12.000Z",
+      "question": "No grinding noises when applying breaks",
+      "score": 1,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Brakes & Steering"
+      }
+    },
+    {
+      "id": 32,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:52:35.000Z",
+      "question": "Vehicle does not shake when applying breaks",
+      "score": 2,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Brakes & Steering"
+      }
+    },
+    {
+      "id": 33,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:53:04.000Z",
+      "question": "Vehicle has complete papers",
+      "score": 3,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Miscellaneous"
+      }
+    },
+    {
+      "id": 34,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T00:53:25.000Z",
+      "question": "Service and repair records available",
+      "score": 1,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Miscellaneous"
+      }
+    },
+    {
+      "id": 35,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:04:56.000Z",
+      "question": "Free of fluid or oil leaks",
+      "score": 3,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Engine & Transmission"
+      }
+    },
+    {
+      "id": 36,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:05:57.000Z",
+      "question": "Battery terminals free of corrosion",
+      "score": 1,
+      "notes": null,
+      "vehicleType": {
+        "type": "Car"
+      },
+      "category": {
+        "categoryTitle": "Engine & Transmission"
+      }
+    },
+    {
+      "id": 37,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:25:58.000Z",
+      "question": "Fairings/body panel colors match",
+      "score": 1,
+      "notes": null,
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Exterior Inspection"
+      }
+    },
+    {
+      "id": 38,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:26:47.000Z",
+      "question": "Fresh paint job",
+      "score": 2,
+      "notes": "if yes, it could be to conceal damage",
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Exterior Inspection"
+      }
+    },
+    {
+      "id": 39,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:28:26.000Z",
+      "question": "All fairings, panels, headlamps, brackets and tank align properly",
+      "score": 2,
+      "notes": null,
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Exterior Inspection"
+      }
+    },
+    {
+      "id": 40,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:28:56.000Z",
+      "question": "Tires are of free of any cuts, bubbles or cracks",
+      "score": 3,
+      "notes": null,
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Exterior Inspection"
+      }
+    },
+    {
+      "id": 41,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:29:48.000Z",
+      "question": "Free of body scratches/dents",
+      "score": 1,
+      "notes": null,
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Exterior Inspection"
+      }
+    },
+    {
+      "id": 42,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:30:34.000Z",
+      "question": "Headlights, turn signals and break lights are functional",
+      "score": 2,
+      "notes": null,
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Exterior Inspection"
+      }
+    },
+    {
+      "id": 43,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:31:43.000Z",
+      "question": "Tank has no rust",
+      "score": 2,
+      "notes": null,
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Exterior Inspection"
+      }
+    },
+    {
+      "id": 44,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:32:23.000Z",
+      "question": "When shaking/pushing the motorcycle, no funny noises are made",
+      "score": 1,
+      "notes": null,
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Exterior Inspection"
+      }
+    },
+    {
+      "id": 45,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:32:58.000Z",
+      "question": "Seats unworn and free of cracks",
+      "score": 1,
+      "notes": null,
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Exterior Inspection"
+      }
+    },
+    {
+      "id": 46,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:33:32.000Z",
+      "question": "Windshield free of cracks",
+      "score": 1,
+      "notes": null,
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Exterior Inspection"
+      }
+    },
+    {
+      "id": 47,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:34:20.000Z",
+      "question": "All gauges on the dashboard work",
+      "score": 2,
+      "notes": null,
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Electrical System"
+      }
+    },
+    {
+      "id": 48,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:35:06.000Z",
+      "question": "No dashboard warning lights remain illuminated",
+      "score": 2,
+      "notes": null,
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Electrical System"
+      }
+    },
+    {
+      "id": 49,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:39:30.000Z",
+      "question": "Radio/Speakers/Entertainment system works",
+      "score": 1,
+      "notes": "This applies to motorcycles with an entertainment system",
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Electrical System"
+      }
+    },
+    {
+      "id": 50,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:41:00.000Z",
+      "question": "Keys can open tank/backseat",
+      "score": 2,
+      "notes": null,
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Exterior Inspection"
+      }
+    },
+    {
+      "id": 51,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:42:38.000Z",
+      "question": "Shocks are not leaking",
+      "score": 2,
+      "notes": null,
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Exterior Inspection"
+      }
+    },
+    {
+      "id": 52,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:43:55.000Z",
+      "question": "Side mirrors are in good condition and can be adjusted",
+      "score": 1,
+      "notes": null,
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Exterior Inspection"
+      }
+    },
+    {
+      "id": 53,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:44:49.000Z",
+      "question": "Engine not making a knocking or pinging sound",
+      "score": 3,
+      "notes": null,
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Engine & Transmission"
+      }
+    },
+    {
+      "id": 54,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:45:38.000Z",
+      "question": "Free of fluid or oil leaks around the engine",
+      "score": 3,
+      "notes": null,
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Engine & Transmission"
+      }
+    },
+    {
+      "id": 55,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:48:26.000Z",
+      "question": "Oil is clear and properly gauged ",
+      "score": 1,
+      "notes": "Looking through the sight glass or deep stick will provide more insight",
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Engine & Transmission"
+      }
+    },
+    {
+      "id": 56,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:48:54.000Z",
+      "question": "Free of odours while engine is running\"",
+      "score": 2,
+      "notes": null,
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Engine & Transmission"
+      }
+    },
+    {
+      "id": 57,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:49:21.000Z",
+      "question": "Exhaust pipe emissions is not blue, black or white",
+      "score": 3,
+      "notes": "If blue it indicates engine burns oil. If black indicate excessive oil consumption, If white it indicates a bad head gasket",
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Engine & Transmission"
+      }
+    },
+    {
+      "id": 58,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:54:50.000Z",
+      "question": "Rims are not dented, bent or wielded",
+      "score": 2,
+      "notes": null,
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Exterior Inspection"
+      }
+    },
+    {
+      "id": 59,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:58:01.000Z",
+      "question": "Each gear shifts smoothly and there are not grinding noises when shifting",
+      "score": 3,
+      "notes": null,
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Engine & Transmission"
+      }
+    },
+    {
+      "id": 60,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T01:58:48.000Z",
+      "question": "Motorcyle is stable; no shaking or vibrating at low and high speed",
+      "score": 2,
+      "notes": null,
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Brakes & Steering"
+      }
+    },
+    {
+      "id": 61,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T02:00:48.000Z",
+      "question": "No resistance in the steering when turning",
+      "score": 1,
+      "notes": "Check this when the motorcycle is stationary. Be aware that some motorcycles have steering dampers which might give a sense of resistance.",
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Brakes & Steering"
+      }
+    },
+    {
+      "id": 62,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T02:01:33.000Z",
+      "question": "No grinding noises when applying breaks",
+      "score": 1,
+      "notes": null,
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Brakes & Steering"
+      }
+    },
+    {
+      "id": 63,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T02:02:06.000Z",
+      "question": "Motorcycle does not shake when applying breaks",
+      "score": 2,
+      "notes": null,
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Brakes & Steering"
+      }
+    },
+    {
+      "id": 64,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T12:12:48.000Z",
+      "question": "Motorcycle has complete papers",
+      "score": 3,
+      "notes": null,
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Miscellaneous"
+      }
+    },
+    {
+      "id": 65,
+      "status": "published",
+      "sort": null,
+      "date_created": "2023-02-19T12:13:20.000Z",
+      "question": "Service and repair records available",
+      "score": 1,
+      "notes": null,
+      "vehicleType": {
+        "type": "Motorcycle"
+      },
+      "category": {
+        "categoryTitle": "Miscellaneous"
+      }
+    }
+  ]
+}
