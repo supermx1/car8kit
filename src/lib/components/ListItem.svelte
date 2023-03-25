@@ -1,29 +1,21 @@
 <script>
+    import {formatDateTime} from "$lib/util.js";
+
     export let data = {};
 
-    function fDate(dt) {
-        const date = new Date(dt);
-        return date.toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-            hour12: true,
-            hour: "2-digit",
-            minute: "2-digit",
-        });
-    }
+
 </script>
 
 {#if data.date && data.vin}
     <!-- svelte-ignore a11y-click-events-have-key-events -->
 
-    <a href="/view-rated/{data.id}">
+    <a href={'/home/vehicle/' + data.id}>
         <div
                 class="shadow-sm flex bg-white rounded-lg items-center justify-between px-2 py-4 mb-5 hover:cursor-pointer"
         >
             <div>
                 <img
-                        src="https://github.com/filippofilip95/car-logos-dataset/raw/master/logos/optimized/{data.vehicleMake.toLowerCase()}.png"
+                        src="https://github.com/techgfxlimited/vehicles-db/raw/main/logos/optimized/{data.vehicleMake.toLowerCase()}.png"
                         class="max-h-[50px]"
                         alt="car-logo"
                 />
@@ -40,7 +32,7 @@
                     {/if}
                 </p>
                 <p class="text-gray-500 mb-1 mt-0 text-sm">{data.vin}</p>
-                <p class="text-gray-500 text-xs m-0">{fDate(data.date)}</p>
+                <p class="text-gray-500 text-xs m-0">{formatDateTime(data.date)}</p>
             </div>
             <div class="flex flex-col justify-center items-center px-2 pr-4">
                 <i class="fa-solid fa-star text-lg text-yellow-300"></i>

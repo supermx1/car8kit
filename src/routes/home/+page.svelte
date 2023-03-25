@@ -1,13 +1,13 @@
 <script>
     import {
-        Page,
+        Page, Navbar, Link
     } from 'konsta/svelte';
     import { fly } from 'svelte/transition';
-    import { USER } from "$lib/store.js";
+    import {rateVehicle, USER} from "$lib/store.js";
     import {onMount} from "svelte";
     import {goto} from "$app/navigation";
-    import Listitem from "$lib/components/Listitem.svelte";
     import Profile from "$lib/components/Profile.svelte";
+    import ListItem from "$lib/components/ListItem.svelte";
 
 
     let searchText = "";
@@ -79,27 +79,32 @@
             car.vehicleMake.toLowerCase().indexOf(searchText.toLowerCase()) !== -1
     );
 
-
-
-
+    onMount(()=>{
+            $rateVehicle.vin = "";
+            $rateVehicle.vehicleType = null;
+            $rateVehicle.vehicleBrand = "";
+            $rateVehicle.vehicleModel = "";
+            $rateVehicle.vehicleYear = "";
+    })
 </script>
 <svelte:head>
     <title>Home</title>
     <meta name="description" content="Home Page" />
 </svelte:head>
-
 <Page>
-
+    <div transition:fly="{{ x: 200, duration: 200 }}">
     <!-- BG TOP -->
-    <div class="bg-blue-900 h-[20vh] p-5" transition:fly="{{ x: 200, duration: 200 }}">
-        <div class="flex">
-            <h1 class="text-3xl text-white font-bold">Welcome</h1>
-            <div class="ml-auto order-2">
-              <!-- Profile Component -->
-             <Profile/>
+    <div class="bg-blue-900 h-[25vh] p-5">
+        <Navbar
+                class="top-0 sticky mb-5"
+                transparent="true"
+        >
+            <div slot="left">
+                <h1 class="text-3xl text-white font-bold mt-5">Welcome,</h1>
+                <p class="block text-md text-white mb-3">{$USER.displayName == null ? 'User' : $USER?.displayName }</p>
             </div>
-        </div>
-        <p class="block text-md text-white mb-3">{$USER?.displayName}</p>
+            <Profile slot="right" />
+        </Navbar>
         <form>
             <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
             <div class="relative">
@@ -111,18 +116,31 @@
             </div>
         </form>
     </div>
-
     <!-- BG BOTTOM -->
     <div>
+        <h1 class="text-xl text-gray-900 font-bold p-5">{filteredList.length == 1 ? filteredList.length + ' Rated Vehicle' : filteredList.length > 1 ? filteredList.length + ' Rated Vehicles' : ' Rated Vehicles' }</h1>
+        <div class="overflow-x-hidden overflow-y-auto h-[70vh] no-scrollbar">
+            {#if filteredList.length > 0}
+                <div class="px-5">
+                    {#each filteredList as d}
+                        <ListItem data={d} />
+                    {/each}
+                </div>
 
-        <h1 class="text-xl text-gray-900 font-bold p-5">Rated Vehicles</h1>
-        <div class="px-5 overflow-x-hidden overflow-y-auto h-[70vh] no-scrollbar">
-            {#each filteredList as d}
-                <Listitem data={d} />
-            {/each}
+            {:else}
+                <div class="px-5">
+                    <div class="border-dashed border-2 text-gray-300 border-gray-200 border rounded py-8 px-5">
+                    <p class="text-gray-500 dark:text-gray-400 text-center">You have not rated any vehicles</p>
+                        <button class="w-full text-white bg-blue-800 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 mt-6 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+                                on:click={()=>{goto("/home/vehicle-type")}}
+                        >
+                            Get Started
+                        </button>
+                    </div>
+                </div>
+            {/if}
         </div>
 
     </div>
-
-
+    </div>
 </Page>
