@@ -1,0 +1,6 @@
+{
+  "appId": "com.techgfx.car8",
+  "appName": "Car*",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}
