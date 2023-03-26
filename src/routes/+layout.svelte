@@ -2,10 +2,13 @@
     import '$lib/firebase.js';
     import '../app.css';
     import { App, useTheme } from 'konsta/svelte';
+    import { Capacitor } from '@capacitor/core';
     import { onMount } from 'svelte';
     import { pwaInfo } from 'virtual:pwa-info';
 
     let ReloadPrompt
+
+    let theme = "";
 
     onMount(async () => {
       if (pwaInfo) {
@@ -26,17 +29,18 @@
         })
       }
       pwaInfo && (ReloadPrompt = (await import('$lib/ReloadPrompt.svelte')).default)
+      theme = Capacitor.getPlatform() === 'ios' ? 'ios' : Capacitor.getPlatform() === 'material' ? 'material' : Capacitor.getPlatform() === 'web' ? 'ios' : '';
     })
 
     $: webManifest = pwaInfo ? pwaInfo.webManifest.linkTag : ''
 
 
-
-    let theme;
-    theme = useTheme((newValue) => {
-      // to keep it reactive, update value on theme update in parent components
-      theme = newValue;
-    });
+    //
+    // let theme;
+    // theme = useTheme((newValue) => {
+    //   // to keep it reactive, update value on theme update in parent components
+    //   theme = newValue;
+    // });
 
     console.log(theme); // -> 'ios'
   </script>
@@ -45,7 +49,7 @@
     {@html webManifest}
   </svelte:head>
   
-  <App theme={theme === 'ios' ? 'ios' : 'material'} safeAreas>
+  <App theme="material" safeAreas class="touch-action-none">
     <slot />
   </App>
 

@@ -1,19 +1,20 @@
 <script>
     import {
-        Page, Navbar, Link,
+        Page, Navbar, Link, Toast, Button
     } from 'konsta/svelte';
     import { fly } from 'svelte/transition';
     import { rateVehicle, globalStarRating } from "$lib/store.js";
     import {goto} from "$app/navigation";
-    import Profile from "$lib/components/Profile.svelte";
     import Rating from "$lib/components/Rating.svelte";
     import {onMount} from "svelte";
+    import Header from "$lib/components/Header.svelte";
+
+    let toastCenterOpened = false;
 
     let AVG = 0;
     let ENTRIES = 0;
     let ANSWERED = 0;
     let TOTAL = 0;
-    // $: $rateVehicle.vehicleType === "Car" ? "categories" : $rateVehicle.vehicleType === "Motorcycle" ? "bikecategories" : "";
 
     let questions = [];
     $: _categories = categorize(questions);
@@ -64,15 +65,20 @@
                 `https://car8-questions.pages.dev/qs.json`
             );
             const result = await response.json();
-            console.log("result", result);
-            questions = result.data;
+            questions = result.data.filter(q=> q.vehicleType.type === $rateVehicle.vehicleType);
         } catch (error) {
+            toastCenterOpened = true;
             console.log("error", error)
         }
     }
 
     onMount( ()=>{
         getQuestions();
+        // if ($rateVehicle.vehicleType == "") {
+        //     goto("/home/vehicle-type");
+        // } else if ($rateVehicle.vin == "") {
+        //     goto("/home/select-vehicle");
+        // }
     });
 </script>
 <svelte:head>
@@ -81,44 +87,32 @@
 </svelte:head>
 <Page>
     <div transition:fly="{{ x: 200, duration: 200 }}">
-
         <!-- BG TOP -->
-        <div class="bg-blue-900 h-[15vh] py-5">
-            <Navbar
-                    class="top-0 sticky mb-5"
-                    transparent="true"
-            >
-                <div slot="left">
-                    <h1 class="text-2xl text-white font-bold">
-                        <Link slot="left" onClick={() => history.back()} class="" navbar><i class="fa-solid fa-chevron-left text-2xl flex-col text-white mr-3"></i></Link>Rate Vehicle</h1>
-
-                </div>
-                <Profile slot="right" />
-            </Navbar>
-        </div>
+        <Header title="Rate Vehicle"/>
+        <!-- BG BOTTOM -->
         {#if $rateVehicle.vehicleBrand != ""}
             <div
                     class="bg-white p-3 h-20 w-20 absolute right-5 -mt-5 flex flex-col rounded-lg items-center justify-center shadow-sm"
             >
-                <img
-                        src="https://github.com/techgfxlimited/vehicles-db/raw/main/logos/optimized/{$rateVehicle.vehicleBrand.toLowerCase()}.png"
-                        class="max-h-[50px]"
-                        alt="car-logo"
-                        height="50px"
-                />
-                <p class="text-center font-bold text-md m-0 mt-2">
-                    {AVG}/{$globalStarRating}
-                </p>
+<!--                <img-->
+<!--                        src="https://github.com/techgfxlimited/vehicles-db/raw/main/logos/optimized/{$rateVehicle.vehicleBrand.toLowerCase()}.png"-->
+<!--                        class="max-h-[50px]"-->
+<!--                        alt="car-logo"-->
+<!--                        height="50px"-->
+<!--                />-->
+                <div class="text-center font-bold text-sm mt-1">
+                    <i class="fa-solid fa-star text-2xl {AVG >= 0 && AVG < 2 ? 'text-gray-300' : AVG >= 2 && AVG <  3.5 ? 'text-yellow-400' : AVG >= 3.5 && AVG <= 5 ? 'text-yellow-300' : '' } mr-1"></i>
+                    {AVG == 5 ? 5 : AVG}/{$globalStarRating}
+                </div>
             </div>
         {/if}
 
-        <!-- BG BOTTOM -->
         <div class="px-5">
             <div class="py-5">
                 <h1 class="text-xl text-gray-900 font-bold">Checklist</h1>
                 <p class="text-sm text-gray-600">{$rateVehicle.vehicleYear + " " + $rateVehicle.vehicleBrand + " " + $rateVehicle.vehicleModel}</p>
             </div>
-            <div class="overflow-x-hidden overflow-y-auto h-[60vh] no-scrollbar">
+            <div class="overflow-x-hidden overflow-y-auto h-[75vh] pb-[25%] no-scrollbar">
                 {#each _categories as c}
                     <div class="mb-5">
                     <span class="divide-y text-lg font-bold line-after mb-3"
@@ -130,15 +124,29 @@
                         {/each}
                     </div>
                 {/each}
+                <button disabled={$rateVehicle.vehicleType == null} class="w-full text-white bg-blue-800 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+                        on:click={()=>goto("/home/select-vehicle")}
+                >
+                    Continue
+                </button>
             </div>
 
-            <button disabled={$rateVehicle.vehicleType == null ? true : false} class="w-full text-white bg-blue-800 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
-                    on:click={()=>goto("/home/select-vehicle")}
-            >
-                Continue
-            </button>
+
 
         </div>
 
     </div>
+
+    <Toast position="center" opened={toastCenterOpened}>
+        <Button
+                slot="button"
+                clear
+                inline
+                onClick={() => (toastCenterOpened = false)}
+        >
+            Close
+        </Button>
+        <div class="shrink">Something went wrong!</div>
+    </Toast>
+
 </Page>

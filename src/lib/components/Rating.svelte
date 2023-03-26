@@ -4,8 +4,8 @@
     export let value = 0;
 </script>
 
-<ul class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg flex mb-6 mt-2">
-    <li class="w-full border-b border-gray-200 border-b-0 border-r">
+<ul class="items-center w-full text-sm font-medium text-gray-900  flex mb-6 mt-2">
+    <li class="w-full border-b border-gray-200 border-b-0 ">
         <div class="flex items-center pl-3">
             <input type="radio"  class="text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2 hidden peer"
                    bind:group={selected}

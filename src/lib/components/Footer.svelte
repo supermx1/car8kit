@@ -3,7 +3,7 @@
 </script>
 
 <div class="px-5 relative">
-    <div class="fixed z-50 w-[15rem] h-16 -translate-x-1/2 bg-white border border-gray-200 rounded-full bottom-4 left-1/2">
+    <div class="fixed z-10 w-[15rem] h-16 -translate-x-1/2 bg-white border border-gray-200 rounded-full bottom-6 left-1/2">
         <div class="grid h-full max-w-lg grid-cols-3 mx-auto">
             <button on:click={()=>goto("/home/")} data-tooltip-target="tooltip-home" type="button" class="inline-flex flex-col items-center justify-center px-5 rounded-l-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
                 <i class="fa-solid fa-house text-2xl mb-1 text-gray-500 group-hover:text-blue-600"></i>

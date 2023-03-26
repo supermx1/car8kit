@@ -23,6 +23,10 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@capacitor/android": "^4.7.1",
+		"@capacitor/cli": "^4.7.1",
+		"@capacitor/core": "^4.7.1",
+		"@capacitor/ios": "^4.7.1",
 		"@sveltejs/adapter-node": "^1.2.3",
 		"firebase": "^9.18.0",
 		"konsta": "^1.0.2",

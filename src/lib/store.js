@@ -5,7 +5,7 @@ export const LOGO = writable("/Car8.png");
 export const globalStarRating = writable(5);
 export const rateVehicle = writable({
     vin: "",
-    vehicleType: null,
+    vehicleType: "",
     vehicleBrand: "",
     vehicleModel: "",
     vehicleYear: null,
@@ -21,4 +21,6 @@ export const VEHICLE_DB = readable([], function start(set){
             set(data)
         });
 })
+
+export const version = writable("v1.0.0");
 

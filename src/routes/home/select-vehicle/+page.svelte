@@ -10,6 +10,7 @@
     import { VEHICLE, RECALLS, COMPLAINTS} from "$lib/vehicle-store.js";
     import {formatDate} from "$lib/util.js";
     import {onMount} from "svelte";
+    import Header from "$lib/components/Header.svelte";
 
     let popupOpened = false;
     let recallPopupOpened = false;
@@ -61,32 +62,7 @@
 
     let extraModel = ""
     let extraYear = ""
-    // let recalls = {};
-    // let complaints = {};
-    // async function getRecalls(make, model, year) {
-    //     try {
-    //         const response = await fetch(`https://nhtsa.techgfx.workers.dev/recalls/recallsByVehicle?make=${make}&model=${model}&modelYear=${year}`);
-    //         const result = await response.json();
-    //         console.log("result", result);
-    //         return result;
-    //
-    //     } catch (error) {
-    //         console.log("error", error);
-    //     }
-    //
-    // }
-    // async function getComplaints(make, model, year) {
-    //     try {
-    //         const response = await fetch(`https://nhtsa.techgfx.workers.dev/complaints/complaintsByVehicle?make=${make}&model=${model}&modelYear=${year}`);
-    //         const result = await response.json();
-    //         console.log("result", result);
-    //         return result;
-    //
-    //     } catch (error) {
-    //         console.log("error", error);
-    //     }
-    //
-    // }
+
 
     async function getVIN(vin) {
         vinDisabled = true;
@@ -145,6 +121,11 @@ onMount(()=>{
         console.log("online")
         disabled = false;
     };
+
+    // if ($rateVehicle.vehicleType == "") {
+    //     goto("/home/vehicle-type");
+    // }
+
     // if ($rateVehicle.vin.length === 16) {
     //     getVIN($rateVehicle.vin);
     // }
@@ -157,19 +138,7 @@ onMount(()=>{
 <Page>
     <div transition:fly="{{ x: 200, duration: 200 }}">
     <!-- BG TOP -->
-    <div class="bg-blue-900 h-[15vh] py-5">
-        <Navbar
-                class="top-0 sticky mb-5"
-                transparent="true"
-
-        >
-
-            <div slot="left">
-                <h1 class="text-2xl text-white font-bold"><Link slot="left" onClick={() => history.back()} class="" navbar><i class="fa-solid fa-chevron-left text-2xl flex-col text-white mr-3"></i></Link>Brand & Model</h1>
-            </div>
-            <Profile slot="right" />
-        </Navbar>
-    </div>
+        <Header title="Brand & Model"/>
     <!-- BG BOTTOM -->
     {#if $rateVehicle.vehicleBrand != ""}
         <div
@@ -185,86 +154,88 @@ onMount(()=>{
     {/if}
     <div class="px-5">
         <h1 class="text-xl text-gray-900 font-bold py-5">Verify VIN</h1>
-
-        <form on:submit|preventDefault={submitForm}>
-            <div>
-                <label for="vin" class="block mb-2 text-sm font-medium text-gray-900">VIN</label>
-                <input type="text" disabled={vinDisabled} bind:value={$rateVehicle.vin}
-                       on:keyup={() => {
+        <div class="overflow-x-hidden overflow-y-auto h-[70vh] pb-[20%] sm:pb-0 no-scrollbar">
+            <form on:submit|preventDefault={submitForm}>
+                <div>
+                    <label for="vin" class="block mb-2 text-sm font-medium text-gray-900">VIN</label>
+                    <input type="text" disabled={vinDisabled} bind:value={$rateVehicle.vin}
+                           on:input={() => {
                         if ($rateVehicle.vin.length == 16){
                             console.log("ON KEYUP GET VIN");
                             getVIN($rateVehicle.vin);
-
                         }
                     }}
-                       minlength="16" maxlength="16" id="vin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700" placeholder="VIN" required>
-                <Link class="mt-2 text-sm text-blue-500 hover:underline" onClick={() => popupOpened = true}>
-                    How to find VIN?
-                </Link>
-            </div>
-            {#if $rateVehicle.vehicleBrand != "" || !navigator.onLine}
-
-                <div class="mt-5">
-                    <label for="brand" class="block mb-2 text-sm font-medium text-gray-900">Brand</label>
-                    <select bind:value={$rateVehicle.vehicleBrand} id="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700" required>
-                        <option value="" disabled selected>Select Brand</option>
-                        {#each vehicle as v}
-                            <option value={v}>{v}</option>
-                        {/each}
-                    </select>
+                           minlength="16" maxlength="16" id="vin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700" placeholder="VIN" required>
+                    <Link class="mt-2 text-sm text-blue-500 hover:underline" onClick={() => popupOpened = true}>
+                        How to find VIN?
+                    </Link>
                 </div>
-                <div class="mt-5">
-                    <label for="model" class="block mb-2 text-sm font-medium text-gray-900">Model</label>
-                    <select bind:value={$rateVehicle.vehicleModel} id="model" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700" required>
-                        {#if extraModel != ""}
-                            <option value={extraModel}>{extraModel}</option>
-                        {/if}
-                        <option value="" disabled selected>Other Models</option>
-                        {#each model as m}
-                            <option value={m}>{m}</option>
-                        {/each}
-
-                    </select>
-                </div>
-                <div class="mt-5">
-                    <label for="year" class="block mb-2 text-sm font-medium text-gray-900">Year</label>
-                    <select bind:value={$rateVehicle.vehicleYear} id="year" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700"  required>
-                        {#if extraYear != ""}
-                            <option value={String(extraYear)}>{extraYear}</option>
-                        {/if}
-                        <option value="" disabled selected>Other Models</option>
-                        {#each year as y}
-                            <option value={String(y)}>{y}</option>
-                        {/each}
-
-                    </select>
-                </div>
-            {/if}
-
-            {#if $RECALLS.Count > 0 || $COMPLAINTS.count > 0 }
-            <ul class="my-6 space-y-4 text-left text-gray-500 border-dashed border-2 border-gray-200 border rounded py-3 px-4">
-                {#if $RECALLS.Count > 0}
-                <li class="flex items-center space-x-3">
-                    <!-- Icon -->
-                    <i class="fa-solid fa-triangle-exclamation text-yellow-400"></i>
-                    <span>{$RECALLS.Count > 1 ? $RECALLS.Count + ' recall records found. ' : $RECALLS.Count + ' recall record found. ' }<Link class="mt-2 text-sm text-blue-500 hover:underline" onClick={() => recallPopupOpened = true}>Learn more</Link></span>
-                </li>
+                {#if $rateVehicle.vehicleBrand != "" || !navigator.onLine}
+                    <div class="mt-3">
+                        <label for="brand" class="block mb-2 text-sm font-medium text-gray-900">Brand</label>
+                        <select bind:value={$rateVehicle.vehicleBrand} id="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700" required>
+                            <option value="" disabled selected>Select Brand</option>
+                            {#each vehicle as v}
+                                <option value={v}>{v}</option>
+                            {/each}
+                        </select>
+                    </div>
+                    <div class="mt-3">
+                        <label for="model" class="block mb-2 text-sm font-medium text-gray-900">Model</label>
+                        <select bind:value={$rateVehicle.vehicleModel} id="model" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700" required>
+                            {#if extraModel != ""}
+                                <option value={extraModel}>{extraModel}</option>
+                            {/if}
+                            <option value="" disabled selected>Other Models</option>
+                            {#each model as m}
+                                <option value={m}>{m}</option>
+                            {/each}
+                        </select>
+                    </div>
+                    <div class="mt-3">
+                        <label for="year" class="block mb-2 text-sm font-medium text-gray-900">Year</label>
+                        <select bind:value={$rateVehicle.vehicleYear} id="year" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700"  required>
+                            {#if extraYear != ""}
+                                <option value={String(extraYear)}>{extraYear}</option>
+                            {/if}
+                            <option value="" disabled selected>Other Models</option>
+                            {#each year as y}
+                                <option value={String(y)}>{y}</option>
+                            {/each}
+                        </select>
+                    </div>
                 {/if}
-                {#if $COMPLAINTS.count > 0}
-                <li class="flex items-center space-x-3">
-                    <!-- Icon -->
-                    <i class="fa-solid fa-triangle-exclamation text-yellow-400"></i>
-                    <span>{$COMPLAINTS.count > 1 ? $COMPLAINTS.count + ' complaints found. ' : $COMPLAINTS.count + ' complaint found. ' }<Link class="mt-2 text-sm text-blue-500 hover:underline" onClick={() => complaintPopupOpened = true}>Learn more</Link></span>
-                </li>
+
+                {#if $RECALLS.Count > 0 || $COMPLAINTS.count > 0 }
+                    <ul class="my-5 space-y-4 text-left text-gray-500 border-dashed border-2 border-gray-300 border rounded py-3 px-4">
+                        {#if $RECALLS.Count > 0}
+                            <li class="flex items-center space-x-3">
+                                <!-- Icon -->
+                                <i class="fa-solid fa-triangle-exclamation text-yellow-400"></i>
+                                <span>{$RECALLS.Count > 1 ? $RECALLS.Count + ' recall records found. ' : $RECALLS.Count + ' recall record found. ' }<Link class="mt-2 text-sm text-blue-500 hover:underline" onClick={() => recallPopupOpened = true}>Learn more</Link></span>
+                            </li>
+                        {/if}
+                        {#if $COMPLAINTS.count > 0}
+                            <li class="flex items-center space-x-3">
+                                <!-- Icon -->
+                                <i class="fa-solid fa-triangle-exclamation text-yellow-400"></i>
+                                <span>{$COMPLAINTS.count > 1 ? $COMPLAINTS.count + ' complaints found. ' : $COMPLAINTS.count + ' complaint found. ' }<Link class="mt-2 text-sm text-blue-500 hover:underline" onClick={() => complaintPopupOpened = true}>Learn more</Link></span>
+                            </li>
+                        {/if}
+                    </ul>
+                {:else}
+                    <div class="my-8"></div>
                 {/if}
-            </ul>
-            {:else}
-                <div class="my-8"></div>
-            {/if}
-        <button type="submit" disabled={$rateVehicle.vehicleModel == "" || $rateVehicle.vehicleBrand == "" || $rateVehicle.vehicleYear == ""} class="w-full text-white bg-blue-800 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed">
-            Continue
-        </button>
-        </form>
+                <button type="submit" disabled={$rateVehicle.vehicleModel == "" || $rateVehicle.vehicleBrand == "" || $rateVehicle.vehicleYear == ""} class="w-full text-white bg-blue-800 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed">
+                    {#if loading}
+                        <i class="fa-solid fa-circle-notch m-auto text-gray-200 animate-spin fill-blue-600"></i>
+                    {:else}
+                        Continue
+                    {/if}
+                </button>
+            </form>
+        </div>
+
     </div>
     </div>
 
