@@ -10,6 +10,7 @@ export function formatDateTime(dt) {
     });
 }
 
+
 export function formatDate(dt) {
     const date = new Date(dt);
     return date.toLocaleDateString("en-NG", {

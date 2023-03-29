@@ -1,6 +1,6 @@
 <script>
     import {
-        Page, Navbar, Link,  Popup, Block
+        Page, Navbar, Link,  Popup, Block, Toast, Button
     } from 'konsta/svelte';
     import { fly } from 'svelte/transition';
     import { rateVehicle } from "$lib/store.js";
@@ -15,6 +15,7 @@
     let popupOpened = false;
     let recallPopupOpened = false;
     let complaintPopupOpened = false;
+
 
     // Return distinct array and sort
     let vehicle = [...new Set(car.map((Vehicle) => Vehicle.Make))].sort();
@@ -48,6 +49,7 @@
     let vinDisabled = false;
     let disabled = true;
     let loading = false;
+    let error = false;
     let errMSG = "";
 
     window.onoffline = (e) => {
@@ -87,14 +89,15 @@
             if (make) {
                 $rateVehicle.vehicleBrand =
                     make.toUpperCase().substring(0,1) + make.slice(1).toLowerCase();
-                extraModel = model.toUpperCase().substring(0,1) + model.slice(1).toLowerCase();
-                extraYear = String(year)
+                    extraModel = model.toUpperCase().substring(0,1) + model.slice(1).toLowerCase();
+                    extraYear = String(year)
                 setTimeout(() => {
                     $rateVehicle.vehicleModel = extraModel;
                     $rateVehicle.vehicleYear = extraYear;
                 }, 10);
             } else {
-                errMSG = "No VIN available";
+                error = true;
+                errMSG = "VIN not found!";
                 $rateVehicle.vehicleBrand = "";
                 $rateVehicle.vehicleModel = "";
                 $rateVehicle.vehicleYear = "";
@@ -102,6 +105,8 @@
                 extraModel = ""
             }
         } catch (error) {
+            error = true;
+            errMSG = "Something went wrong!";
             console.log("error", error);
             vinDisabled = false;
             loading = false;
@@ -126,7 +131,7 @@ onMount(()=>{
     //     goto("/home/vehicle-type");
     // }
 
-    // if ($rateVehicle.vin.length === 16) {
+    // if ($rateVehicle.vin.length >= 16) {
     //     getVIN($rateVehicle.vin);
     // }
 })
@@ -154,18 +159,32 @@ onMount(()=>{
     {/if}
     <div class="px-5">
         <h1 class="text-xl text-gray-900 font-bold py-5">Verify VIN</h1>
+        <!-- Error Alert-->
+        {#if error}
+            <div id="alert-2" class="flex p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                <i class="fa-solid fa-circle-info text-red-500"></i>
+                <span class="sr-only">Info</span>
+                <div class="ml-3 text-sm font-medium">
+                    {errMSG}
+                </div>
+                <button on:click={() => error = false} type="button" class="ml-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex h-8 w-8 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-2" aria-label="Close">
+                    <span class="sr-only">Close</span>
+                    <i class="fa-solid fa-xmark text-red-500"></i>
+                </button>
+            </div>
+        {/if}
         <div class="overflow-x-hidden overflow-y-auto h-[70vh] pb-[20%] sm:pb-0 no-scrollbar">
             <form on:submit|preventDefault={submitForm}>
                 <div>
                     <label for="vin" class="block mb-2 text-sm font-medium text-gray-900">VIN</label>
                     <input type="text" disabled={vinDisabled} bind:value={$rateVehicle.vin}
                            on:input={() => {
-                        if ($rateVehicle.vin.length == 16){
+                        if ($rateVehicle.vin.length >= 16){
                             console.log("ON KEYUP GET VIN");
                             getVIN($rateVehicle.vin);
                         }
                     }}
-                           minlength="16" maxlength="16" id="vin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700" placeholder="VIN" required>
+                           minlength="16" maxlength="17" id="vin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700" placeholder="VIN" required>
                     <Link class="mt-2 text-sm text-blue-500 hover:underline" onClick={() => popupOpened = true}>
                         How to find VIN?
                     </Link>
@@ -233,6 +252,8 @@ onMount(()=>{
                         Continue
                     {/if}
                 </button>
+
+
             </form>
         </div>
 
@@ -320,6 +341,7 @@ onMount(()=>{
             </Block>
         </Page>
     </Popup>
+
 
 
 </Page>

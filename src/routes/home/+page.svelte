@@ -8,78 +8,40 @@
     import {goto} from "$app/navigation";
     import Profile from "$lib/components/Profile.svelte";
     import ListItem from "$lib/components/ListItem.svelte";
+    import { app } from '$lib/firebase.js';
+    import {collection, getDocs, query, where, getFirestore, getDocFromCache} from "firebase/firestore";
 
+    const db = getFirestore(app);
+
+    let cars = [];
+    let loading = false;
+    let error = false;
+    async function getData() {
+        loading = true;
+        try {
+            const q = query(collection(db, "records"), where("uid", "==", $USER.uid));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+                cars = [...cars, doc.data()];
+                console.log("cars log",cars);
+            });
+            loading = false;
+        } catch (e) {
+            error = true;
+            console.log("Error getting documents: ", e);
+        }
+
+    }
 
     let searchText = "";
 
-    let cars = [
-        {
-            id: 1,
-            vehicleYear: 2009,
-            vehicleMake: "Ford",
-            vehicleModel: "Edge",
-            vin: "VX12357975ER58964",
-            date: "2022-07-20 00:20:01.0",
-            rating: 4.5,
-            purchased: false,
-        },
-        {
-            id: 2,
-            vehicleYear: 2010,
-            vehicleMake: "Honda",
-            vehicleModel: "Accord",
-            vin: "VX12357975ER58964",
-            date: "2022-07-20 00:20:01.0",
-            rating: 4.2,
-            purchased: true,
-        },
-        {
-            id: 3,
-            vehicleYear: 2010,
-            vehicleMake: "Honda",
-            vehicleModel: "Accord",
-            vin: "VX12357975ER58964",
-            date: "2022-07-20 00:20:01.0",
-            rating: 4.2,
-            purchased: true,
-        },
-        {
-            id: 4,
-            vehicleYear: 2010,
-            vehicleMake: "Honda",
-            vehicleModel: "Accord",
-            vin: "VX12357975ER58964",
-            date: "2022-07-20 00:20:01.0",
-            rating: 4.2,
-            purchased: true,
-        },
-        {
-            id: 5,
-            vehicleYear: 2010,
-            vehicleMake: "Honda",
-            vehicleModel: "Accord",
-            vin: "VX12357975ER58964",
-            date: "2022-07-20 00:20:01.0",
-            rating: 4.2,
-            purchased: true,
-        },
-        {
-            id: 6,
-            vehicleYear: 2010,
-            vehicleMake: "Honda",
-            vehicleModel: "Accord",
-            vin: "VX12357975ER58964",
-            date: "2022-07-20 00:20:01.0",
-            rating: 4.2,
-            purchased: true,
-        },
-    ];
     $: filteredList = cars.filter(
         (car) =>
-            car.vehicleMake.toLowerCase().indexOf(searchText.toLowerCase()) !== -1
+            car?.vin?.toLowerCase().indexOf(searchText.toLowerCase()) !== -1
     );
 
     onMount(()=>{
+            getData();
             $rateVehicle.vin = "";
             $rateVehicle.vehicleType = null;
             $rateVehicle.vehicleBrand = "";
@@ -118,27 +80,38 @@
     </div>
     <!-- BG BOTTOM -->
     <div>
-        <h1 class="text-xl text-gray-900 font-bold p-5">{filteredList.length == 1 ? filteredList.length + ' Rated Vehicle' : filteredList.length > 1 ? filteredList.length + ' Rated Vehicles' : ' Rated Vehicles' }</h1>
-        <div class="overflow-x-hidden overflow-y-auto h-[70vh] no-scrollbar">
-            {#if filteredList.length > 0}
-                <div class="px-5">
-                    {#each filteredList as d}
-                        <ListItem data={d} />
-                    {/each}
-                </div>
 
-            {:else}
-                <div class="px-5">
-                    <div class="border-dashed border-2 text-gray-300 border-gray-200 border rounded py-8 px-5">
-                    <p class="text-gray-500 dark:text-gray-400 text-center">You have not rated any vehicles</p>
-                        <button class="w-full text-white bg-blue-800 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 mt-6 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
-                                on:click={()=>{goto("/home/vehicle-type")}}
-                        >
-                            Get Started
-                        </button>
-                    </div>
+        <h1 class="text-xl text-gray-900 font-bold p-5">
+            {filteredList.length == 1 ? filteredList.length + ' Rated Vehicle' : filteredList.length > 1 ? filteredList.length + ' Rated Vehicles' : ' Rated Vehicles' }
+        </h1>
+        <div class="overflow-x-hidden overflow-y-auto h-[70vh] no-scrollbar">
+            {#if loading}
+                <div class="flex items-center justify-center">
+                    <i class="fa-solid fa-circle-notch text-blue-900 animate-spin fill-blue-900 text-2xl"></i>
+                    <p class="text-gray-600 ml-3">Loading rated vehicles...</p>
                 </div>
+            {:else }
+                {#if filteredList.length > 0}
+                    <div class="px-5">
+                        {#each filteredList as d}
+                            <ListItem data={d} />
+                        {/each}
+                    </div>
+
+                {:else}
+                    <div class="px-5">
+                        <div class="border-dashed border-2 text-gray-300 border-gray-200 border rounded py-8 px-5">
+                            <p class="text-gray-500 dark:text-gray-400 text-center">You have not rated any vehicles</p>
+                            <button class="w-full text-white bg-blue-800 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 mt-6 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+                                    on:click={()=>{goto("/home/vehicle-type")}}
+                            >
+                                Get Started
+                            </button>
+                        </div>
+                    </div>
+                {/if}
             {/if}
+
         </div>
 
     </div>
