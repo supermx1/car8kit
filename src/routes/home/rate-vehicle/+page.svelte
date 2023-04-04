@@ -76,7 +76,12 @@
                 `https://car8-questions.pages.dev/qs.json`
             );
             const result = await response.json();
-            questions = result.data.filter(q=> q.vehicleType.type === $rateVehicle.vehicleType);
+            if($rateVehicle.vehicleType) {
+                questions = result.data.filter(q=> q.vehicleType.type === $rateVehicle.vehicleType);
+            } else {
+                error = true;
+                errMSG = "Sorry, couldn't load checklist. Try again."
+            }
             questionsLoading = false;
         } catch (e) {
             error = true;

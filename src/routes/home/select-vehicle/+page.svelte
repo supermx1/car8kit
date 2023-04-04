@@ -85,6 +85,7 @@
             // recalls = await getRecalls(make, model, year);
             // complaints = await getComplaints(make, model, year);
             loading = false;
+            error = false;
             vinDisabled = false;
             if (make) {
                 $rateVehicle.vehicleBrand =

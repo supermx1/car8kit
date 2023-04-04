@@ -4,8 +4,9 @@
     } from 'konsta/svelte';
     import { fly } from 'svelte/transition';
     import {rateVehicle, USER} from "$lib/store.js";
+    import { VEHICLE, RECALLS, COMPLAINTS} from "$lib/vehicle-store.js";
     import {onMount} from "svelte";
-    import {goto} from "$app/navigation";
+    import {goto, afterNavigate, beforeNavigate} from "$app/navigation";
     import Profile from "$lib/components/Profile.svelte";
     import ListItem from "$lib/components/ListItem.svelte";
     import { app } from '$lib/firebase.js';
@@ -21,9 +22,15 @@
         try {
             const q = query(collection(db, "records"), where("uid", "==", $USER.uid));
             const querySnapshot = await getDocs(q);
+            console.log(querySnapshot);
             querySnapshot.forEach((doc) => {
-                cars = [...cars, doc.data()];
+                // get each document and push it to the array and append the id to the object
+                const data = doc.data();
+                const id = doc.id;
+                const obj = {...data, id};
+                cars = [...cars, obj];
                 console.log("cars log",cars);
+
             });
             loading = false;
         } catch (e) {
@@ -47,6 +54,10 @@
             $rateVehicle.vehicleBrand = "";
             $rateVehicle.vehicleModel = "";
             $rateVehicle.vehicleYear = "";
+            $VEHICLE = {};
+            // $RECALLS = [];
+            // $COMPLAINTS = [];
+
     })
 </script>
 <svelte:head>

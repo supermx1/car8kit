@@ -24,7 +24,7 @@
 
 
 
-    function signInWithGoogle() {
+    async function signInWithGoogle() {
         spinner2 = true;
         disabled = true;
         console.log('signing in with google')
