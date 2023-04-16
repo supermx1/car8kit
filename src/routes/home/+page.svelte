@@ -3,7 +3,7 @@
         Page, Navbar, Link
     } from 'konsta/svelte';
     import { fly } from 'svelte/transition';
-    import {rateVehicle, USER} from "$lib/store.js";
+    import {rateVehicle, USER, USER_DATA} from "$lib/store.js";
     import { VEHICLE, RECALLS, COMPLAINTS} from "$lib/vehicle-store.js";
     import {onMount} from "svelte";
     import {goto, afterNavigate, beforeNavigate} from "$app/navigation";
@@ -14,30 +14,16 @@
 
     const db = getFirestore(app);
 
-    let cars = [];
-    let loading = false;
+    $: cars = getCars($USER_DATA);
+
     let error = false;
-    async function getData() {
-        loading = true;
-        try {
-            const q = query(collection(db, "records"), where("uid", "==", $USER.uid));
-            const querySnapshot = await getDocs(q);
-            console.log(querySnapshot);
-            querySnapshot.forEach((doc) => {
-                // get each document and push it to the array and append the id to the object
-                const data = doc.data();
-                const id = doc.id;
-                const obj = {...data, id};
-                cars = [...cars, obj];
-                console.log("cars log",cars);
 
-            });
-            loading = false;
-        } catch (e) {
-            error = true;
-            console.log("Error getting documents: ", e);
+
+    function getCars(){
+        if($USER_DATA && $USER_DATA['reviews']){
+            return $USER_DATA['reviews'];
         }
-
+        return [];
     }
 
     let searchText = "";
@@ -48,16 +34,12 @@
     );
 
     onMount(()=>{
-            getData();
             $rateVehicle.vin = "";
             $rateVehicle.vehicleType = null;
             $rateVehicle.vehicleBrand = "";
             $rateVehicle.vehicleModel = "";
             $rateVehicle.vehicleYear = "";
             $VEHICLE = {};
-            // $RECALLS = [];
-            // $COMPLAINTS = [];
-
     })
 </script>
 <svelte:head>
@@ -96,18 +78,22 @@
             {filteredList.length == 1 ? filteredList.length + ' Rated Vehicle' : filteredList.length > 1 ? filteredList.length + ' Rated Vehicles' : ' Rated Vehicles' }
         </h1>
         <div class="overflow-x-hidden overflow-y-auto h-[70vh] no-scrollbar">
-            {#if loading}
-                <div class="flex items-center justify-center">
-                    <i class="fa-solid fa-circle-notch text-blue-900 animate-spin fill-blue-900 text-2xl"></i>
-                    <p class="text-gray-600 ml-3">Loading rated vehicles...</p>
-                </div>
-            {:else }
-                {#if filteredList.length > 0}
+            {#if $USER_DATA?.uid}
+                {#if $USER_DATA['reviews']?.length > 0}
                     <div class="px-5">
+                        {#if filteredList.length}
+
                         {#each filteredList as d}
                             <ListItem data={d} />
                         {/each}
+
+                        {:else}
+                            <div class="border-dashed border-2 text-gray-300 border-gray-200 border rounded py-8 px-5">
+                                <p class="text-gray-500 dark:text-gray-400 text-center">No vehicles found.</p>
+                            </div>
+                        {/if}
                     </div>
+
 
                 {:else}
                     <div class="px-5">
@@ -120,7 +106,14 @@
                             </button>
                         </div>
                     </div>
+
+
                 {/if}
+            {:else}
+                <div class="flex items-center justify-center">
+                    <i class="fa-solid fa-circle-notch text-blue-900 animate-spin fill-blue-900 text-2xl"></i>
+                    <p class="text-gray-600 ml-3">Loading rated vehicles...</p>
+                </div>
             {/if}
 
         </div>

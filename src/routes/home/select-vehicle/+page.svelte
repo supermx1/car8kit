@@ -2,6 +2,7 @@
     import {
         Page, Navbar, Link,  Popup, Block, Toast, Button
     } from 'konsta/svelte';
+    import { Geolocation } from '@capacitor/geolocation';
     import { fly } from 'svelte/transition';
     import { rateVehicle } from "$lib/store.js";
     import {goto} from "$app/navigation";
@@ -15,6 +16,14 @@
     let popupOpened = false;
     let recallPopupOpened = false;
     let complaintPopupOpened = false;
+    let vinDisabled = false;
+    let disabled = true;
+    let loading = false;
+    let error = false;
+    let errMSG = "";
+    let extraModel = "";
+    let extraYear = "";
+
 
 
     // Return distinct array and sort
@@ -46,11 +55,7 @@
     }
 
 
-    let vinDisabled = false;
-    let disabled = true;
-    let loading = false;
-    let error = false;
-    let errMSG = "";
+
 
     window.onoffline = (e) => {
         console.log("offline")
@@ -62,9 +67,13 @@
         disabled = false;
     };
 
-    let extraModel = ""
-    let extraYear = ""
 
+
+    async function getCurrentPosition() {
+       let coords = await Geolocation.getCurrentPosition();
+       $rateVehicle.coordinates.latitude = coords.coords.latitude;
+       $rateVehicle.coordinates.longitude = coords.coords.longitude;
+    }
 
     async function getVIN(vin) {
         vinDisabled = true;
@@ -118,7 +127,9 @@
         goto("/home/rate-vehicle");
     }
 
-onMount(()=>{
+onMount(async ()=>{
+    await getCurrentPosition();
+
     window.onoffline = (e) => {
         console.log("offline")
         disabled = true;
@@ -232,14 +243,14 @@ onMount(()=>{
                             <li class="flex items-center space-x-3">
                                 <!-- Icon -->
                                 <i class="fa-solid fa-triangle-exclamation text-yellow-400"></i>
-                                <span>{$RECALLS.Count > 1 ? $RECALLS.Count + ' recall records found. ' : $RECALLS.Count + ' recall record found. ' }<Link class="mt-2 text-sm text-blue-500 hover:underline" onClick={() => recallPopupOpened = true}>Learn more</Link></span>
+                                <span><b>{$RECALLS.Count}</b>{$RECALLS.Count > 1 ? ' recall records found. ' : ' recall record found. ' }<Link class="mt-2 text-sm text-blue-500 hover:underline" onClick={() => recallPopupOpened = true}>Learn more</Link></span>
                             </li>
                         {/if}
                         {#if $COMPLAINTS.count > 0}
                             <li class="flex items-center space-x-3">
                                 <!-- Icon -->
                                 <i class="fa-solid fa-triangle-exclamation text-yellow-400"></i>
-                                <span>{$COMPLAINTS.count > 1 ? $COMPLAINTS.count + ' complaints found. ' : $COMPLAINTS.count + ' complaint found. ' }<Link class="mt-2 text-sm text-blue-500 hover:underline" onClick={() => complaintPopupOpened = true}>Learn more</Link></span>
+                                <span><b>{$COMPLAINTS.count }</b>{$COMPLAINTS.count > 1 ? ' complaints found. ' : ' complaint found. ' }<Link class="mt-2 text-sm text-blue-500 hover:underline" onClick={() => complaintPopupOpened = true}>Learn more</Link></span>
                             </li>
                         {/if}
                     </ul>
@@ -323,12 +334,20 @@ onMount(()=>{
     <!--    POPUP FOR COMPLAINTS -->
     <Popup opened={complaintPopupOpened} onBackdropClick={() => complaintPopupOpened = false}>
         <Page>
-            <Navbar large="true" transparent="true" title="Recalls" subtitle={$rateVehicle.vehicleYear + " " + $rateVehicle.vehicleBrand + " " + $rateVehicle.vehicleModel}>
+            <Navbar large="true" transparent="true" title="Complaints" subtitle={$rateVehicle.vehicleYear + " " + $rateVehicle.vehicleBrand + " " + $rateVehicle.vehicleModel}>
                 <Link slot="right" navbar onClick={() => complaintPopupOpened = false}>
                     <i class="fa-solid fa-xmark mr-1 text-3xl"></i>
                 </Link>
             </Navbar>
             <Block class="space-y-4 pb-10">
+                <div id="alert-3" class="flex p-4 text-yellow-800 rounded-lg bg-yellow-50" role="alert">
+                    <i class="fa-solid fa-circle-info text-yellow-500 mt-1"></i>
+                    <span class="sr-only">Info</span>
+                    <div class="ml-3 text-sm font-medium">
+                        These complaints are only meant to provide additional insights on the vehicle you are about to rate.
+                    </div>
+                </div>
+                <Link class="text-sm text-blue-500 border-blue-500 border hover:underline w-full bg-transparent hover:bg-blue-700 hover:text-white font-medium rounded-lg px-5 py-2.5 mr-2 mb-2" href="https://www.carcomplaints.com/{$rateVehicle.vehicleBrand}/{$rateVehicle.vehicleModel}/{$rateVehicle.vehicleYear}/" target="_blank">See more reported complaints</Link>
                 {#if $COMPLAINTS.results}
                     {#each $COMPLAINTS.results as r}
                         <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg">

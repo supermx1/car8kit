@@ -26,10 +26,12 @@
 		"@capacitor/android": "^4.7.1",
 		"@capacitor/cli": "^4.7.1",
 		"@capacitor/core": "^4.7.1",
+		"@capacitor/geolocation": "^4.1.0",
 		"@capacitor/ios": "^4.7.1",
 		"@sveltejs/adapter-node": "^1.2.3",
 		"firebase": "^9.18.0",
 		"konsta": "^1.0.2",
+		"leaflet": "^1.9.3",
 		"swiper": "^9.1.1"
 	}
 }

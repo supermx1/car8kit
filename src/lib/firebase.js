@@ -2,8 +2,9 @@
 import {initializeApp} from "firebase/app";
 import {getAnalytics} from "firebase/analytics";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
+import { getFirestore, collection, setDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { initializeFirestore, CACHE_SIZE_UNLIMITED, enableIndexedDbPersistence, } from "firebase/firestore";
-import { USER } from "$lib/store.js";
+import { USER, USER_DATA } from "$lib/store.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -26,7 +27,8 @@ const analytics = getAnalytics(app);
 
 
 // fire state change on refresh, when a page is refreshed. The user is set
-onAuthStateChanged(getAuth(), (user) => {
+onAuthStateChanged(getAuth(), async (user) => {
+    createUserData(user).then();
     USER.set(user);
     if(user){
         if(
@@ -39,7 +41,31 @@ onAuthStateChanged(getAuth(), (user) => {
             window.location.pathname = "/home";
         }
     } else {
-
-        // window.location.pathname = "/login";
+        window.location.pathname = "/login";
     }
 });
+
+// Create user data
+async function createUserData (user){
+    if(!user.uid) return;
+    const db = getFirestore();
+    const userRef = doc(db, "users", user.uid);
+    const userSnap = await getDoc(userRef);
+    if(!userSnap.exists()){
+        await setDoc(userRef, {
+            reviews: [],
+            uid: user.uid,
+            email: user.email,
+            name: user.displayName,
+            photoURL: user.photoURL,
+            phoneNumber: user.phoneNumber,
+            emailVerified: user.emailVerified,
+            createdAt: new Date().toISOString(),
+        });
+    }
+    else {
+        // set in store
+        USER_DATA.set(userSnap.data());
+        console.log("USER DATA SET IN STORE: ", userSnap.data());
+    }
+}

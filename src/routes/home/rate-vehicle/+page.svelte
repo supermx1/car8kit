@@ -1,20 +1,21 @@
 <script>
     import {
-        Page, Navbar, Link, Toast, Button
+        Page, Navbar, Link, Toast, Button, Toolbar, Sheet, Block
     } from 'konsta/svelte';
     import { fly } from 'svelte/transition';
-    import { rateVehicle, globalStarRating, USER } from "$lib/store.js";
+    import {rateVehicle, globalStarRating, USER, USER_DATA} from "$lib/store.js";
     import {formatDate} from "$lib/util.js";
     import {goto} from "$app/navigation";
     import Rating from "$lib/components/Rating.svelte";
+    import { countries } from "$lib/countries.js";
     import {onMount} from "svelte";
     import Header from "$lib/components/Header.svelte";
     import { app } from '$lib/firebase.js';
-    import { getFirestore } from "firebase/firestore";
-    import { collection, addDoc } from "firebase/firestore";
+    import { getFirestore, collection, addDoc } from "firebase/firestore";
 
     const db = getFirestore(app);
     let toastCenterOpened = false;
+    let sheetOpened = false;
 
     let loading = false;
     let errMSG = "";
@@ -24,11 +25,14 @@
     let ENTRIES = 0;
     let ANSWERED = 0;
     let TOTAL = 0;
+    let country= "";
+    let mileage = 0;
+    let unit = "KM";
 
 
     let questions = [];
     $: _categories = categorize(questions);
-    $: _categories && calc();
+    $: calc(_categories);
 
     function categorize(q) {
         const categories = [];
@@ -107,26 +111,30 @@
                 ans: q.ans,
             }
         })
-        try {
-            const docRef = await addDoc(collection(db, "records"), {
-                rating: AVG,
-                uid: $USER.uid,
-                vehicleType: $rateVehicle.vehicleType,
-                vehicleBrand: $rateVehicle.vehicleBrand,
-                vehicleModel: $rateVehicle.vehicleModel,
-                vehicleYear: $rateVehicle.vehicleYear,
-                vin: $rateVehicle.vin,
-                date: _date,
-                questions: qs,
-            });
-            console.log("Document written with ID: ", docRef.id);
-            loading = false;
-            await goto("/home");
-        } catch (e) {
-            error = true;
-            errMSG = `Something went wrong! + ' ' + ${e}`
-            console.error("Error adding document: ", e);
-        }
+        const review = {
+            id: $USER_DATA.uid + '_' + $rateVehicle.vin,
+            rating: AVG,
+            uid: $USER.uid,
+            vehicleType: $rateVehicle.vehicleType,
+            vehicleBrand: $rateVehicle.vehicleBrand,
+            vehicleModel: $rateVehicle.vehicleModel,
+            vehicleYear: $rateVehicle.vehicleYear,
+            coordinates: $rateVehicle.coordinates,
+            vin: $rateVehicle.vin,
+            date: _date,
+            country: country,
+            mileage: mileage,
+            unit: unit,
+            questions: qs,
+            purchased: false,
+            deleted: false,
+        };
+        $USER_DATA.reviews = [...$USER_DATA.reviews, review];
+
+        console.log("Push to reviews", $USER_DATA['reviews']);
+        loading = false;
+        await goto("/home");
+
     }
 
 
@@ -206,14 +214,10 @@
                     {/each}
                 {/if}
 
-                <button disabled={$rateVehicle.vehicleType == null} class="w-full text-white bg-blue-800 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
-                        on:click={submitData}
+                <button class="w-full text-white bg-blue-800 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+                        on:click={()=> sheetOpened = true}
                 >
-                    {#if loading}
-                        <i class="fa-solid fa-circle-notch m-auto text-gray-200 animate-spin fill-blue-600"></i>
-                    {:else}
-                        Save Rating
-                    {/if}
+                        Continue
                 </button>
 
             </div>
@@ -221,19 +225,47 @@
 
 
         </div>
+        <Sheet
+                class="pb-safe w-full"
+                opened={sheetOpened}
+                onBackdropClick={() => (sheetOpened = false)}
+        >
+            <Toolbar top>
+                <div class="left" />
+                <div class="right">
+                    <Link toolbar onClick={() => (sheetOpened = false)}>Close</Link>
+                </div>
+            </Toolbar>
+            <Block class="w-full">
+                <div class="mt-3 flex gap-3">
+                    <div class="flex-1">
+                        <label for="mileage" class="block mb-2 text-sm font-medium text-gray-900">Current Mileage</label>
+                        <input type="number" id="mileage" name="mileage" placeholder="Current Mileage" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700" bind:value={mileage} />
+                    </div>
+                    <div class="flex items-end">
+                        <select id="unit" bind:value={unit} class="bg-gray-50 min-w-[5rem] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700">
+                            <option value="KM">KM</option>
+                            <option value="Miles">Mi</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="mt-4">
+                    <button disabled={$rateVehicle.vehicleType == null} class="w-full text-white bg-blue-800 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+                            on:click={submitData}
+                    >
+                        {#if loading}
+                            <i class="fa-solid fa-circle-notch m-auto text-gray-200 animate-spin fill-blue-600"></i>
+                        {:else}
+                            Save Rating
+                        {/if}
+                    </button>
+                </div>
+            </Block>
+        </Sheet>
 
     </div>
 
-    <Toast position="center" opened={toastCenterOpened}>
-        <Button
-                slot="button"
-                clear
-                inline
-                onClick={() => (toastCenterOpened = false)}
-        >
-            Close
-        </Button>
-        <div class="shrink">Something went wrong!</div>
-    </Toast>
+
 
 </Page>

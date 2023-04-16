@@ -1,5 +1,21 @@
 import { writable, readable } from "svelte/store";
+import { getFirestore, collection, setDoc, doc, getDoc, updateDoc } from "firebase/firestore";
+
 export const USER = writable(null); // Should be set to null
+export const USER_DATA = writable(null); // Should be set to null
+USER_DATA.subscribe(value => {
+    if(!value) return;
+    if(!value.uid) return;
+
+    console.log("USER_DATA STORE [CHECK HERE]: ", value);
+    const DB = getFirestore();
+    const userRef = doc(DB, "users", value.uid);
+    updateDoc(userRef, value).then(() => {
+        console.log("USER DATA UPDATED IN FIRESTORE");
+    }).catch(err => {
+        console.log("ERROR UPDATING USER DATA IN FIRESTORE: ", err);
+    });
+});
 
 export const LOGO = writable("/Car8.png");
 export const globalStarRating = writable(5);
@@ -9,6 +25,10 @@ export const rateVehicle = writable({
     vehicleBrand: "",
     vehicleModel: "",
     vehicleYear: null,
+    coordinates: {
+        longitude: 0,
+        latitude: 0,
+    }
 })
 
 export const recall = writable({});
@@ -22,5 +42,5 @@ export const VEHICLE_DB = readable([], function start(set){
         });
 })
 
-export const version = writable("v1.0.0");
+export const version = writable("v1.0.2");
 
