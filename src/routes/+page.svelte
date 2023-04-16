@@ -5,7 +5,6 @@
     import { goto } from '$app/navigation';
     import {onMount} from "svelte";
     import {register} from 'swiper/element/bundle';
-    import {USER} from "$lib/store.js";
 
     register();
     const onProgress = (e) => {
