@@ -21,7 +21,7 @@ export const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 
-// fire state change on refresh, when a page is refreshed. The user is set
+// fire state change on refresh, when a page is refreshed. The user is set1
 let isLoggingOut = false;
 
 onAuthStateChanged(getAuth(), async (user) => {
