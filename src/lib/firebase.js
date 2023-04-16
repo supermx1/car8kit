@@ -5,11 +5,8 @@ import {getAuth, onAuthStateChanged} from "firebase/auth";
 import { getFirestore, collection, setDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { initializeFirestore, CACHE_SIZE_UNLIMITED, enableIndexedDbPersistence, } from "firebase/firestore";
 import { USER, USER_DATA } from "$lib/store.js";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { goto } from "$app/navigation";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 export const firebaseConfig = {
     apiKey: "AIzaSyBzqLwQHj9B_DwB8IvqdHPYmW81o8dp_R0",
     authDomain: "car8-ng.firebaseapp.com",
@@ -24,24 +21,24 @@ export const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 
-
-
 // fire state change on refresh, when a page is refreshed. The user is set
+let isLoggingOut = false;
+
 onAuthStateChanged(getAuth(), async (user) => {
     createUserData(user).then();
     USER.set(user);
-    if(user){
-        if(
-            [
-                "/",
-                "/login",
-                "/register"
-            ].includes(window.location.pathname)
-        ){
-            window.location.pathname = "/home";
+    if (user) {
+        if ([
+            '/',
+            '/login',
+            '/register',
+        ].includes(window.location.pathname)) {
+            window.location.pathname = '/home';
         }
     } else {
-        window.location.pathname = "/login";
+        if (window.location.pathname !== '/login') {
+            window.location.pathname = '/login';
+        }
     }
 });
 

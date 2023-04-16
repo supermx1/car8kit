@@ -16,7 +16,7 @@
         const auth = getAuth();
 
         signOut(auth)
-            .then(() =>  goto('/login'))
+            .then(() =>  goto('/'))
             .catch((error) => {
             console.log(error)
             alertOpened = true;
