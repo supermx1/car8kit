@@ -96,7 +96,6 @@ onMount(() => {
 
             <!-- BG TOP -->
             <Header title="Vehicle Details"/>
-            <!--        <pre><code>{JSON.stringify(questions, null, 2)}</code></pre>-->
             <!-- BG BOTTOM -->
 
                 <div
@@ -137,7 +136,11 @@ onMount(() => {
                         {/if}
                     </p>
                     <h1 class="text-xl text-gray-900 font-bold mb-2 mt-3">Research</h1>
+                    {#if vehicleData.vehicleType == "Car"}
                     <p>Cars.com: <Link href="https://www.cars.com/research/{vehicleData.vehicleBrand}-{vehicleData.vehicleModel}-{vehicleData.vehicleYear}/" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square mr-1"></i>Learn More</Link>
+                    {:else }
+                        <p>Google: <Link href="https://www.google.com/search?q={vehicleData.vehicleBrand} {vehicleData.vehicleModel} {vehicleData.vehicleYear}/" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square mr-1"></i>Learn More</Link></p>
+                    {/if}
 
                         {#if $RECALLS.Count > 0 || $COMPLAINTS.count > 0 }
                             <ul class="my-5 space-y-4 text-left text-gray-500 border-dashed border-2 border-gray-300 border rounded py-3 px-4">

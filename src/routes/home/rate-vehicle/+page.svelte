@@ -131,7 +131,6 @@
         };
         $USER_DATA.reviews = [...$USER_DATA.reviews, review];
 
-        console.log("Push to reviews", $USER_DATA['reviews']);
         loading = false;
         await goto("/home");
 

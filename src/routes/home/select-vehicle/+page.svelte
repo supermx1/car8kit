@@ -192,7 +192,7 @@ onMount(async ()=>{
                     <input type="text" disabled={vinDisabled} bind:value={$rateVehicle.vin}
                            on:input={() => {
                         if ($rateVehicle.vin.length >= 16){
-                            console.log("ON KEYUP GET VIN");
+
                             getVIN($rateVehicle.vin);
                         }
                     }}

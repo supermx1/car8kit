@@ -63,6 +63,6 @@ async function createUserData (user){
     else {
         // set in store
         USER_DATA.set(userSnap.data());
-        console.log("USER DATA SET IN STORE: ", userSnap.data());
+
     }
 }

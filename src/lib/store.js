@@ -7,11 +7,11 @@ USER_DATA.subscribe(value => {
     if(!value) return;
     if(!value.uid) return;
 
-    console.log("USER_DATA STORE [CHECK HERE]: ", value);
+
     const DB = getFirestore();
     const userRef = doc(DB, "users", value.uid);
     updateDoc(userRef, value).then(() => {
-        console.log("USER DATA UPDATED IN FIRESTORE");
+
     }).catch(err => {
         console.log("ERROR UPDATING USER DATA IN FIRESTORE: ", err);
     });
