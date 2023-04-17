@@ -137,7 +137,7 @@ onMount(() => {
                     </p>
                     <h1 class="text-xl text-gray-900 font-bold mb-2 mt-3">Research</h1>
                     {#if vehicleData.vehicleType == "Car"}
-                    <p>Cars.com: <Link href="https://www.cars.com/research/{vehicleData.vehicleBrand}-{vehicleData.vehicleModel}-{vehicleData.vehicleYear}/" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square mr-1"></i>Learn More</Link>
+                        <p>Cars.com: <Link href="https://www.cars.com/research/{vehicleData.vehicleBrand}-{vehicleData.vehicleModel}-{vehicleData.vehicleYear}/" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square mr-1"></i>Learn More</Link></p>
                     {:else}
                         <p>Google: <Link href="https://www.google.com/search?q={vehicleData.vehicleBrand} {vehicleData.vehicleModel} {vehicleData.vehicleYear}/" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square mr-1"></i>Learn More</Link></p>
                     {/if}
