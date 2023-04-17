@@ -42,5 +42,5 @@ export const VEHICLE_DB = readable([], function start(set){
         });
 })
 
-export const version = writable("v1.0.2");
+export const version = writable("v1.0.3");
 
